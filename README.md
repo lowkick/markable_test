@@ -13,9 +13,9 @@ Example python bkremove.py c:\test\images
 4) a third parameter is optional, it's the colorspace used for segmentation. 
 I find that in some cases RGB works better, in some others HSV or HLS give better results. 
 You can pass a number 1, 2, 3 as third parameter, with the meaning:
-1: use RGB colorspace (default)
-2: use HSV colorspace
-3: use HLS colorspace
+* 1: use RGB colorspace (default)
+* 2: use HSV colorspace
+* 3: use HLS colorspace
 Example python bkremove.py c:\test\images 2
 this uses HSV colorspace
 
