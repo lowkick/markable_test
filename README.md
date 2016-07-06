@@ -11,6 +11,7 @@ Example in c:\test\images
 Example python bkremove.py c:\test\images
 
 4) the results are written in the same folder, but with "_out" suffix and png extension
+png is chosen to allow for multirun without reelaborating the elaborated images
 
 The program makes a simple watershed segmentation, presuming that in the center of the image there is the dress and in the border there is the background. 
 If the background and the dress are omogeneus enough, this works, at least I hope so.
