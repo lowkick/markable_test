@@ -7,19 +7,32 @@ import sys
 from threading import Thread
 
 debug = 0
+colorspace = '1'
 
 def	elabora(file):
 	src = cv2.imread(file)
-	
+
 	# cartoonizzo un po' 
-	img = cv2.medianBlur(src, 5)
+	if colorspace == '1':
+		img = cv2.medianBlur(src, 5)
+	else:
+		if colorspace == '2':
+			img = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
+			img = cv2.medianBlur(img, 5)
+		else:
+			img = cv2.cvtColor(src, cv2.COLOR_BGR2HLS)
+			img = cv2.medianBlur(img, 5)
+	
+	# aggiungo i bordi
+	#cny = cv2.cvtColor(cv2.Canny(img, 10, 200), cv2.COLOR_GRAY2BGR)
+	#img = img + cny
 	
 	h, w = img.shape[:2]
 	if debug:
 		print w, h
+		print colorspace
 		orig = img.copy()
 	
-
 	# creo marker
 	marker = np.zeros((h, w), dtype=int)
 
@@ -45,11 +58,12 @@ def	elabora(file):
 	cv2.watershed(img, marker)
 
 	src[marker == 1] = [0, 0, 0]
-		
+	
 	if debug:
 		#mostro risultati
 		cv2.imshow('image', src)
 		cv2.imshow('image1', orig)
+		#cv2.imshow('canny', cny)
 		if (cv2.waitKey(0) & 0xff) == 27:
 			quit()
 		cv2.destroyAllWindows()
@@ -61,11 +75,15 @@ def	elabora(file):
 
 # leggo directory
 
-if len(sys.argv) != 2:
-	print "usage: bkremove imagedir"
+if len(sys.argv) < 2:
+	print "usage: bkremove imagedir [colorspace]"
 	print "example: bkremove c:\test\images"
+	print "colorspaces are 1: rgb, 2:HSV, 3:HLS"
 	quit()
 
+if len(sys.argv) == 3:
+	colorspace = sys.argv[2]
+	
 dir = sys.argv[1] + '/*.jpg'
 files = glob.glob(dir)
 start = time.time()
