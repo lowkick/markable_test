@@ -6,7 +6,7 @@ import time
 import sys
 from threading import Thread
 
-debug = 1
+debug = 0
 
 def	elabora(file):
 	src = cv2.imread(file)
