@@ -16,6 +16,7 @@ You can pass a number 1, 2, 3 as third parameter, with the meaning:
 * 1: use RGB colorspace (default)
 * 2: use HSV colorspace
 * 3: use HLS colorspace
+* 
 Example python bkremove.py c:\test\images 2
 this uses HSV colorspace
 
